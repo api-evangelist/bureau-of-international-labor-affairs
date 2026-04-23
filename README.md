@@ -6,6 +6,7 @@ ILAB strengthens global labor standards; enforces labor commitments; promotes eq
 ## Scope
 
 - **Type:** Index
+- **x-type:** government
 - **Position:** Consumer
 - **Access:** 3rd-Party
 
@@ -22,7 +23,7 @@ ILAB strengthens global labor standards; enforces labor commitments; promotes eq
 ## Timestamps
 
 - **Created:** 2024-11-25
-- **Modified:** 2026-04-21
+- **Modified:** 2026-04-23
 
 ## APIs
 
@@ -45,6 +46,7 @@ Provides programmatic access to ILAB datasets including country-level labor stan
 
 - [Documentation](https://www.dol.gov/agencies/ilab/our-work/data-research)
 - [Portal](https://developer.dol.gov/)
+- [DataAPI](https://catalog.data.gov/dataset?organization=dol-gov&q=ilab)
 
 #### Features
 
@@ -91,6 +93,7 @@ The Sweat and Toil dataset covers child labor and forced labor in over 130 count
 - [Portal](https://developer.dol.gov/)
 - [Privacy Policy](https://www.dol.gov/general/privacynotice)
 - [Data Research](https://www.dol.gov/agencies/ilab/our-work/data-research)
+- [Data Portal](https://catalog.data.gov/dataset?organization=dol-gov&q=ilab)
 
 ## Maintainers
 

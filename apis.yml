@@ -11,10 +11,11 @@ tags:
   - Forced Labor
   - Human Trafficking
 type: Index
+x-type: government
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-25'
-modified: '2026-04-21'
+modified: '2026-04-23'
 position: Consumer
 description: >-
   ILAB strengthens global labor standards; enforces labor commitments; promotes
@@ -36,6 +37,8 @@ apis:
         type: Documentation
       - url: https://developer.dol.gov/
         type: Portal
+      - url: https://catalog.data.gov/dataset?organization=dol-gov&q=ilab
+        type: DataAPI
     description: >-
       ILAB provides data on child labor, forced labor, and human trafficking
       across countries. The DOL developer API provides programmatic access to
@@ -88,6 +91,8 @@ common:
     url: https://www.dol.gov/general/privacynotice
   - type: Data Research
     url: https://www.dol.gov/agencies/ilab/our-work/data-research
+  - type: Data Portal
+    url: https://catalog.data.gov/dataset?organization=dol-gov&q=ilab
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
