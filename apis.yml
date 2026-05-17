@@ -11,7 +11,7 @@ tags:
   - Forced Labor
   - Human Trafficking
 type: Index
-x-type: government
+kind: government
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-25'
@@ -87,7 +87,7 @@ common:
     url: https://www.dol.gov/agencies/ilab
   - type: Portal
     url: https://developer.dol.gov/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.dol.gov/general/privacynotice
   - type: Data Research
     url: https://www.dol.gov/agencies/ilab/our-work/data-research
