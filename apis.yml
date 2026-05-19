@@ -83,6 +83,8 @@ apis:
       - Academic research on child labor
       - Policy analysis
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/showcase/bureau-of-international-labor-affairs
   - type: Website
     url: https://www.dol.gov/agencies/ilab
   - type: Portal
