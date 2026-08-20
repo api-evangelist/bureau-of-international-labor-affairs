@@ -3,6 +3,14 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/bureau-of-international-labor-affairs/refs/heads/main/apis.yml
 name: Bureau of International Labor Affairs
 tags:
+  - Federal-Government
+  - International
+  - Labor
+  - Standards
+  - Child Labor
+  - Forced Labor
+  - Human Trafficking
+tags_raw:
   - Federal Government
   - International
   - Labor
@@ -37,6 +45,12 @@ apis:
       bureau-of-international-labor-affairs:dol-ilab-data-api
     name: DOL ILAB Data API
     tags:
+      - Federal-Government
+      - Labor
+      - International
+      - Child Labor
+      - Forced Labor
+    tags_raw:
       - Federal Government
       - Labor
       - International
@@ -71,6 +85,10 @@ apis:
       bureau-of-international-labor-affairs:ilab-sweat-and-toil-data
     name: ILAB Sweat and Toil Data
     tags:
+      - Federal-Government
+      - Child Labor
+      - Forced Labor
+    tags_raw:
       - Federal Government
       - Child Labor
       - Forced Labor
