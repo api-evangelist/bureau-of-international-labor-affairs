@@ -1,0 +1,224 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Direct HTTPS probes of the named /.well-known/ path list on every host this record
+  knows: the registrable domain and www, the retired V1 API host (api.dol.gov), the
+  live DOL Open Data Portal API host (apiprod.dol.gov), the developer portal SPA
+  (dataportal.dol.gov) and its data.dol.gov alias.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  No /.well-known/ document was served on any ILAB or DOL host. Three distinct
+  non-answers were observed and they are NOT interchangeable: dol.gov / www.dol.gov
+  return an Akamai "Access Denied" 403 to any non-browser client; api.dol.gov and
+  apiprod.dol.gov return the AWS API Gateway default {"message":"Missing Authentication
+  Token"} 403, which is what that gateway emits for a route that does not exist; and
+  dataportal.dol.gov / data.dol.gov answer 200 for EVERY path with the same React
+  single-page-app HTML shell, which is a catch-all, not a document. No WellKnown or
+  SecurityTxt pointer is emitted from this probe — see documents_found: 0.
+documents_found: 0
+notes:
+  - >-
+    Every 200 recorded below is the dataportal.dol.gov SPA index.html served by a
+    catch-all route. Body inspected; it is `<!doctype html>` with the portal's React
+    bundle, identical for /llms.txt, /data.json and every /.well-known/ path. Treated
+    as a MISS, not a hit.
+  - >-
+    DOL does operate a vulnerability disclosure program, but it is published as an HTML
+    policy page at https://www.dol.gov/vulnerability-disclosure-policy and a Bugcrowd
+    program, not as an RFC 9116 /.well-known/security.txt. Captured in
+    security/bureau-of-international-labor-affairs-vulnerability-disclosure.yml.
+  - >-
+    DOL DOES publish a Project Open Data / DCAT-US catalog at https://www.dol.gov/data.json
+    (conformsTo https://project-open-data.cio.gov/v1.1/schema, carrying three ILAB
+    datasets). That is a federal open-data catalog, not an RFC 9727 /.well-known/api-catalog,
+    so it is recorded in conformance/ rather than credited here.
+hosts:
+  - host: dol.gov
+    note: Akamai edge returns "Access Denied" to non-browser clients on every path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+  - host: www.dol.gov
+    note: Same Akamai edge policy as the apex.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+  - host: api.dol.gov
+    note: >-
+      Retired DOL V1/V2 API host. Root serves a one-line HTML page pointing at
+      data.dol.gov. All other paths return the AWS API Gateway "Missing Authentication
+      Token" 403 (route not found).
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+  - host: apiprod.dol.gov
+    note: >-
+      The LIVE DOL Open Data Portal v4 API host. AWS API Gateway; unknown routes return
+      "Missing Authentication Token" 403.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+  - host: dataportal.dol.gov
+    note: >-
+      React SPA. Every path 200s with the same index.html shell. All 200s below are
+      SHELL, not documents.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /llms.txt
+        status: 200
+        file: null
+        body: spa-shell
+  - host: data.dol.gov
+    note: Alias of the same SPA as dataportal.dol.gov; identical catch-all behaviour.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+        body: spa-shell
+      - path: /llms.txt
+        status: 200
+        file: null
+        body: spa-shell
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

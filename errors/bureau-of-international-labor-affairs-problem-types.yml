@@ -1,0 +1,87 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live unauthenticated probes of https://apiprod.dol.gov/v4 and https://api.dol.gov on
+  2026-09-05, plus the "Executing and Debugging Queries" section of
+  https://dataportal.dol.gov/getting-started.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+format: proprietary
+rfc9457: false
+summary: >-
+  The DOL Open Data Portal API publishes no error reference. There is no problem-type
+  registry, no application error codes, and no application/problem+json. What follows was
+  observed directly against the live host, and the envelope is not consistent across
+  the estate — an agent has to handle three different shapes.
+envelope:
+  primary:
+    media_type: application/json
+    shape: '{"message": "<string>"}'
+    note: Emitted by the AWS API Gateway layer.
+  secondary:
+    media_type: text/plain
+    shape: a bare English sentence
+    note: Emitted by the application layer for API-key failures.
+problem_types:
+  - status: 401
+    id: missing-or-invalid-api-key
+    title: API key missing or incorrect
+    detail: >-
+      The API key is either incorrect or missing from your query. If you are using the
+      API Query Builder in the Open Data Portal, please Sign in and try again, otherwise
+      please correct your key.
+    media_type: text/plain
+    remediation: >-
+      Pass X-API-KEY as a query parameter (or header) with a key issued at
+      https://dataportal.dol.gov/api-keys.
+    evidence: https://apiprod.dol.gov/v4/get/ilab/Child_Labor_Report__2016_to_2022/json/metadata
+    observed: '2026-09-05'
+  - status: 403
+    id: missing-authentication-token
+    title: Missing Authentication Token
+    detail: '{"message":"Missing Authentication Token"}'
+    media_type: application/json
+    remediation: >-
+      This is the AWS API Gateway default for a route that does not exist, NOT an
+      authorization failure. Re-check the path shape against
+      /v4/get/{agency}/{endpoint}/{format}. It is also what every path on the retired
+      api.dol.gov host now returns.
+    evidence: https://apiprod.dol.gov/v4/openapi.json
+    observed: '2026-09-05'
+    trap: >-
+      An agent that reads this 403 as "my credentials are wrong" will retry with a new
+      key forever. The two 4xx meanings are inverted from the usual convention here:
+      401 is the credential problem and 403 is the routing problem.
+  - status: 502
+    id: internal-server-error
+    title: Internal server error
+    detail: '{"message": "Internal server error"}'
+    media_type: application/json
+    remediation: Retry with backoff; no Retry-After header is returned.
+    evidence: https://apiprod.dol.gov/v4/get/ilab/Child_Labor_Report__2016_to_2022/json?limit=2
+    observed: '2026-09-05'
+    note: >-
+      Returned for an unauthenticated data request — i.e. the missing-key path on the
+      data route fails as a gateway error rather than the 401 the metadata route returns.
+  - status: 200
+    id: success
+    title: OK
+    detail: >-
+      "If everything is successful, you will see data in the response body as well as the
+      code 200 in the server response."
+    media_type: application/json
+    evidence: https://apiprod.dol.gov/v4/datasets
+    observed: '2026-09-05'
+documented_guidance: >-
+  The portal's only published debugging advice is: "If your API query fails and you get a
+  server response code other than 200, verify that your api key is in use by checking for
+  a green Authorize button and check your output and parameters for any issues." No status
+  code list, no error code registry, no per-error remediation.
+gaps:
+  - No RFC 9457 application/problem+json.
+  - No enumerated application error codes.
+  - No documented status-code table.
+  - Envelope differs between the gateway layer (JSON) and the application layer (plain text).
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,125 @@
+generated: '2026-09-05'
+method: derived
+status: candidate
+source: >-
+  Derived from the DOL Open Data Portal v4 API reference at
+  https://dataportal.dol.gov/getting-started and the live anonymous catalogue at
+  https://apiprod.dol.gov/v4/datasets (probed 2026-09-05). No OpenAPI exists for this
+  API, so the tool shapes below are derived from the published parameter reference, not
+  from a machine-readable contract.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  NOBODY SHIPS AN MCP SERVER FOR THIS API. Neither ILAB nor the Department of Labor
+  publishes one, hosted or local. What follows is a CANDIDATE tool list — what a server
+  over ILAB's seven datasets would expose — and it must not be read as an agent surface
+  that exists.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    auth is recorded as api-key because that is what the underlying API requires
+    (X-API-KEY); it describes the API a hypothetical server would wrap, not a server.
+search_performed:
+  - target: First-party hosted MCP endpoint on any dol.gov host
+    result: none
+    evidence:
+      - url: https://apiprod.dol.gov/.well-known/agent-card.json
+        status: 403
+      - url: https://dataportal.dol.gov/.well-known/agent-card.json
+        status: 200
+        note: SPA shell, not a card
+  - target: First-party MCP package on npm / PyPI
+    result: none
+    evidence: >-
+      registry.npmjs.org search for "dol.gov", "department of labor api" and "usdol"
+      returned no DOL-published MCP package on 2026-09-05.
+  - target: DOL GitHub organisation
+    result: none
+    evidence: >-
+      https://github.com/USDepartmentofLabor — 89 public repos enumerated 2026-09-05; no
+      MCP server among them.
+third_party_servers:
+  note: >-
+    Recorded for completeness and explicitly NOT credited to this provider. These are
+    community projects; ILAB and DOL neither publish nor endorse them, and none is
+    ILAB-specific.
+  servers:
+    - name: DOL_MCP
+      url: https://github.com/UHQ-Actual/DOL_MCP
+      first_party: false
+      coverage: WHD, OFLC LCA, OSHA — not ILAB
+    - name: us-gov-open-data-mcp
+      url: https://github.com/lzinga/us-gov-open-data-mcp
+      first_party: false
+      coverage: 40+ U.S. government data APIs
+candidate_tools:
+  - name: list_dol_datasets
+    description: >-
+      List the DOL Open Data Portal dataset catalogue, optionally filtered to a single
+      agency. This is the only DOL v4 route that answers without an API key.
+    backing_operation: GET https://apiprod.dol.gov/v4/datasets
+    auth_required: false
+    inputs:
+      page:
+        type: integer
+        description: 1-based page number; the response carries meta.total_pages.
+    derived_from: https://apiprod.dol.gov/v4/datasets (observed response, 2026-09-05)
+  - name: get_ilab_dataset_metadata
+    description: >-
+      Return the variable-level metadata for one ILAB dataset, including allowed value
+      ranges and the valueless-entry list.
+    backing_operation: GET https://apiprod.dol.gov/v4/get/ilab/{endpoint}/{format}/metadata
+    auth_required: true
+    inputs:
+      endpoint:
+        type: string
+        description: The dataset's api_url, e.g. LaborShield_Goods.
+      format:
+        type: string
+        enum: [json, xml, csv]
+    derived_from: https://dataportal.dol.gov/getting-started
+  - name: query_ilab_dataset
+    description: >-
+      Query rows from one ILAB dataset with field selection, filtering, sorting and
+      limit/offset paging.
+    backing_operation: GET https://apiprod.dol.gov/v4/get/ilab/{endpoint}/{format}
+    auth_required: true
+    inputs:
+      endpoint:
+        type: string
+      format:
+        type: string
+        enum: [json, xml, csv]
+      limit:
+        type: integer
+        description: Max 10,000 records or 5 MB per request, whichever is hit first. Default 10.
+      offset:
+        type: integer
+        description: Records to skip. Default 0.
+      fields:
+        type: string
+        description: Comma-separated field names.
+      sort:
+        type: string
+        enum: [asc, desc]
+      sort_by:
+        type: string
+      filter_object:
+        type: string
+        description: >-
+          JSON string with field / operator / value. Operators eq, neq, gt, lt, in,
+          not_in, like.
+    derived_from: https://dataportal.dol.gov/getting-started
+candidate_tools_note: >-
+  Input schemas are transcribed from the provider's published parameter reference. They
+  are NOT read from an OpenAPI or from a live tools/list, because neither exists. Column
+    names per dataset are unknown without an authenticated metadata call, so a real server
+    would need one before it could validate `fields`, `sort_by` or `filter_object.field`.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

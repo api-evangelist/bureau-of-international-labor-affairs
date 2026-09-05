@@ -1,0 +1,184 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  GitHub org https://github.com/USDepartmentofLabor (89 public repos, enumerated via the
+  GitHub API 2026-09-05), plus registry checks against registry.npmjs.org, pypi.org,
+  rubygems.org, packagist.org, azuresearch-usnc.nuget.org and search.maven.org.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  ILAB publishes no client libraries of its own. The U.S. Department of Labor — the parent
+  department that operates the API ILAB's datasets are served through — did once publish a
+  family of first-party "DOL Data SDK" clients in nine languages. EVERY ONE OF THEM IS
+  NOW ARCHIVED, none was ever published to a package registry, and all of them target the
+  retired V1/V2 API on api.dol.gov rather than the current v4 API on apiprod.dol.gov.
+  There is no maintained SDK for the API that actually serves ILAB data today.
+finding: >-
+  Nine first-party SDKs, zero registry publications, zero targeting the current API
+  version. The newest first-party SDK commit is 2017-02-16; the current v4 API it would
+  need to wrap did not exist yet. No `SDKs` pointer is emitted for this provider, because
+  crediting an archived client for a retired API version as a usable SDK would be false.
+official_sdk_count: 0
+archived_first_party_sdk_count: 9
+registry_published_count: 0
+packages:
+  - name: DOLDataSDK-iOS
+    language: Objective-C
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/DOLDataSDK-iOS
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2015-07-30'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: >-
+      No registry distribution (not on CocoaPods trunk under this name); consumed by
+      cloning. version/published are null because there is no registry metadata endpoint
+      to read — checked, nothing to record.
+  - name: Android_DOLDataSDK
+    language: Java
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/Android_DOLDataSDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2015-06-22'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: Not on Maven Central; searched search.maven.org for DOLDataSDK, no hits.
+  - name: DotNet_DOLDataSDK
+    language: C#
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/DotNet_DOLDataSDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2015-06-18'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: >-
+      NuGet search for "DOLDataSDK" returned totalHits 0 on 2026-09-05 — checked, absent.
+  - name: PHP_DOLDataSDK
+    language: PHP
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/PHP_DOLDataSDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2017-02-16'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: >-
+      The newest first-party SDK commit in the whole family. Not published to Packagist by
+      DOL; see the third-party fork below.
+  - name: Ruby_DOLDataSDK
+    language: Ruby
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/Ruby_DOLDataSDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2017-01-11'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: RubyGems search for dol_data_sdk returned an empty result set on 2026-09-05.
+  - name: node-dol-api
+    language: JavaScript
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/node-dol-api
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2015-04-22'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: >-
+      registry.npmjs.org/node-dol-api returns {"error":"Not found"} — checked 2026-09-05,
+      never published to npm.
+  - name: Swift-Federal-Data-SDK
+    language: Swift
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/Swift-Federal-Data-SDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2016-11-04'
+    targets_api_version: V1/V2 (api.dol.gov)
+  - name: BlackBerry_DOLDataSDK
+    language: Java
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/BlackBerry_DOLDataSDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2015-08-13'
+    targets_api_version: V1/V2 (api.dol.gov)
+    note: Targets a platform that no longer exists.
+  - name: ColdFusion-Federal-SDK
+    language: ColdFusion
+    registry: none
+    repo: https://github.com/USDepartmentofLabor/ColdFusion-Federal-SDK
+    official: true
+    archived: true
+    version: null
+    published: null
+    last_commit: '2015-06-05'
+    targets_api_version: V1/V2 (api.dol.gov)
+third_party:
+  - name: usdol/govdatasdk
+    language: PHP
+    registry: packagist
+    url: https://packagist.org/packages/usdol/govdatasdk
+    repo: https://github.com/CristianHG2/PHP_DOLDataSDK
+    official: false
+    version: null
+    published: null
+    downloads: 9
+    note: >-
+      A community Composer port of the DOL PHP SDK, published by an individual
+      (CristianHG2), NOT by the Department of Labor despite the "usdol" vendor namespace.
+      repo.packagist.org returned no version list on 2026-09-05, so version/published are
+      recorded null rather than guessed. Recorded here so the namespace is not mistaken
+      for a first-party release.
+ilab_specific_repos:
+  note: >-
+    Not client libraries, but first-party ILAB code in the same GitHub org, recorded
+    because they are the bureau's own published software surface.
+  repos:
+    - name: Global-Trace-Backend
+      url: https://github.com/USDepartmentofLabor/Global-Trace-Backend
+      language: TypeScript
+      archived: false
+      last_commit: '2025-03-31'
+    - name: Global-Trace-Frontend
+      url: https://github.com/USDepartmentofLabor/Global-Trace-Frontend
+      language: TypeScript
+      archived: false
+      last_commit: '2025-03-31'
+    - name: Global-Trace-Apps
+      url: https://github.com/USDepartmentofLabor/Global-Trace-Apps
+      language: Dart
+      archived: false
+      last_commit: '2025-03-28'
+    - name: Child-Labor
+      url: https://github.com/USDepartmentofLabor/Child-Labor
+      language: Swift
+      archived: true
+      last_commit: '2026-07-14'
+      note: The iOS Sweat & Toil app. Archived 2026.
+    - name: Child-Labor-Android
+      url: https://github.com/USDepartmentofLabor/Child-Labor-Android
+      language: Java
+      archived: true
+      last_commit: '2026-07-14'
+    - name: Comply-Chain
+      url: https://github.com/USDepartmentofLabor/Comply-Chain
+      language: JavaScript
+      archived: true
+      last_commit: '2023-02-09'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

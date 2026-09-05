@@ -1,0 +1,104 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live probes 2026-09-05 of api.dol.gov, apiprod.dol.gov, developer.dol.gov and
+  status.dol.gov, plus https://dataportal.dol.gov/getting-started and the archived
+  first-party developer site https://usdepartmentoflabor.github.io/DOLAPI/.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  The DOL open-data API has been through at least four generations (V1, V2, V3, v4) and
+  the current one is v4 on apiprod.dol.gov. The migration was carried out WITHOUT a
+  published deprecation policy, without Sunset/Deprecation headers, and without
+  redirects: the prior developer portal hostname no longer resolves at all, and the prior
+  API host answers every route with a gateway 403. This is the single most important
+  operational fact about consuming ILAB data programmatically.
+versioning:
+  scheme: url-path
+  current: v4
+  current_base: https://apiprod.dol.gov/v4
+  history:
+    - version: V1
+      host: api.dol.gov
+      state: retired
+      evidence:
+        url: https://api.dol.gov/V1/ILAB
+        status: 403
+        body: '{"message":"Missing Authentication Token"}'
+        observed: '2026-09-05'
+      note: >-
+        This is the baseURL this catalog record carried before 2026-09-05. It is an AWS
+        API Gateway route-not-found, not an auth challenge — the route is gone.
+    - version: V2
+      state: retired
+      evidence: >-
+        First-party source repos USDepartmentofLabor/APIv2 and APIv2-Admin, both archived
+        (last push 2014-09-11).
+    - version: V3
+      state: retired
+      evidence: >-
+        First-party source repo USDepartmentofLabor/apiv3-admin, archived (last push
+        2017-08-25).
+    - version: v4
+      host: apiprod.dol.gov
+      state: current
+      evidence:
+        url: https://apiprod.dol.gov/v4/datasets
+        status: 200
+        observed: '2026-09-05'
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    No deprecation or sunset policy is published anywhere on dol.gov or
+    dataportal.dol.gov, and no RFC 8594 Sunset or Deprecation header was observed. The
+    only lifecycle language in the DOL API Terms of Service is a unilateral reservation:
+    "The DOL reserves the right ... to terminate or deny you access to and use of all or
+    part of the API at any time for any other reason in its sole discretion."
+broken_migration_evidence:
+  - subject: developer.dol.gov
+    finding: NXDOMAIN — the hostname does not resolve at all
+    status: 0
+    observed: '2026-09-05'
+    note: >-
+      This host was the DOL developer portal and is still the URL this catalog record
+      carried as its Portal pointer, and is still the URL the department's own archived
+      developer site (usdepartmentoflabor.github.io/DOLAPI/) tells developers to visit
+      to get an API key. Removed from apis.yml in this pass.
+  - subject: https://www.dol.gov/agencies/ilab/our-work/data-research
+    finding: 404 — the ILAB data & research landing page this record pointed at is gone
+    status: 404
+    observed: '2026-09-05'
+  - subject: https://www.dol.gov/agencies/ilab/our-work/data-research/sweat-toil
+    finding: >-
+      404 — the Sweat & Toil page is gone; the programme's data now ships under the
+      LaborShield / ImportWatch / SupplyChainTrace names
+    status: 404
+    observed: '2026-09-05'
+status_page:
+  published: false
+  probed:
+    - url: https://status.dol.gov/
+      status: 0
+      note: NXDOMAIN
+  detail: >-
+    No status page, no uptime feed, no incident history. The Terms of Service explicitly
+    disclaim availability: "The DOL makes no warranty that the API will be error free or
+    that access thereto will be continuous or uninterrupted."
+sla:
+  published: false
+  detail: >-
+    None. The API is offered "as is" and on an "as-available" basis per the DOL API Terms
+    of Service (revised 2020-08-05).
+dataset_currency:
+  source: https://apiprod.dol.gov/v4/datasets
+  observed: '2026-09-05'
+  note: >-
+    The catalogue carries per-dataset published_at / updated_at, which is the closest
+    thing to a change feed this API offers. For the seven ILAB datasets the most recent
+    update is 2026-01-22 (the three LaborShield tables).
+deprecated_operations: []
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

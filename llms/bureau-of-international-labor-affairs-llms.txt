@@ -1,0 +1,81 @@
+# Bureau of International Labor Affairs (ILAB)
+
+> ILAB is a bureau of the U.S. Department of Labor. It strengthens global labor standards, enforces labor commitments in trade agreements, and combats child labor, forced labor and human trafficking. ILAB does not operate its own API. Its public datasets are served through the department-wide U.S. Department of Labor Open Data Portal API.
+
+Generated: 2026-09-05
+Method: generated (from apis.yml plus artifacts in this repository and live probes of the DOL Open Data Portal API on 2026-09-05)
+Source: no /llms.txt is published on any dol.gov host — every probe either returned an Akamai 403, an AWS API Gateway route-not-found 403, or the dataportal SPA's catch-all HTML shell.
+
+## What you actually call
+
+- Base URL: https://apiprod.dol.gov/v4
+- Agency segment for ILAB: `ilab`
+- Catalogue (no key needed): https://apiprod.dol.gov/v4/datasets
+- Dataset rows: https://apiprod.dol.gov/v4/get/ilab/{endpoint}/{format}
+- Dataset metadata: https://apiprod.dol.gov/v4/get/ilab/{endpoint}/{format}/metadata
+- `{format}` is a path segment: json, xml or csv. Default json.
+- `{endpoint}` is the dataset's `api_url` value from the catalogue.
+
+## Authentication
+
+- One credential: `X-API-KEY`, passed as a query parameter (a header is also accepted).
+- Get one by registering at https://dataportal.dol.gov/registration and completing the API User Questionnaire. Keys are managed at https://dataportal.dol.gov/api-keys. Up to 5 keys per account.
+- No OAuth, no OIDC, no scopes. The key is unscoped and read-only.
+
+## Two traps worth knowing before you write code
+
+1. **A 403 here is a routing error, not an auth error.** `{"message":"Missing Authentication Token"}` is the AWS API Gateway default for a path that does not exist. A missing or bad API key returns **401** with a plain-text English sentence, not JSON. Retrying a 403 with a fresh key will never succeed.
+2. **The old base URL is dead and does not say so.** `https://api.dol.gov/V1/...` returns that same 403, and `developer.dol.gov` no longer resolves in DNS at all. The current API is v4 on apiprod.dol.gov. There is no deprecation policy, no Sunset header and no redirect.
+
+## Query parameters
+
+- `limit` — max records. Default 10. Ceiling: 10,000 records or 5 MB per request, whichever hits first.
+- `offset` — records to skip. Default 0. Page beyond the ceiling with limit + offset.
+- `fields` — comma-separated field names. Default: all.
+- `sort` — `asc` or `desc`. `sort_by` — a field name.
+- `filter_object` — a JSON string of `{"field": ..., "operator": ..., "value": ...}`. Operators: eq, neq, gt, lt, in, not_in, like.
+
+## ILAB datasets (7, verified 2026-09-05)
+
+- `Child_Labor_Report__2016_to_2022` — Child Labor Report (2016 to 2022). Static. Updated 2025-09-24. The machine-readable descendant of Sweat & Toil.
+- `ImportWatch_Core_Data` — ImportWatch core table. Updated 2025-11-19.
+- `ImportWatch_Goods_HS` — ImportWatch goods keyed by Harmonized Tariff Schedule code. Updated 2025-11-19.
+- `ImportWatch_Country_Codes` — ImportWatch country-code lookup. Updated 2025-11-19.
+- `LaborShield_ReportingData` — LaborShield reporting data. Updated 2026-01-22.
+- `LaborShield_Goods` — LaborShield goods. Updated 2026-01-22.
+- `LaborShield_SuggestedActions` — LaborShield suggested actions. Updated 2026-01-22.
+
+All seven derive from ILAB's three flagship reports: Findings on the Worst Forms of Child Labor; List of Goods Produced by Child Labor or Forced Labor; List of Products Produced by Forced or Indentured Child Labor.
+
+## What does not exist
+
+- No OpenAPI, Swagger, GraphQL, AsyncAPI, gRPC or WSDL contract. The portal renders Swagger UI, but it builds a document client-side from the key-gated metadata route, so there is nothing to fetch.
+- No MCP server, first-party or otherwise, covering ILAB.
+- No A2A agent card on any host.
+- No /.well-known/ document of any kind, on any host.
+- No webhooks, no event stream, no changelog feed, no status page, no SLA.
+- No maintained SDK. DOL's nine first-party client libraries are all archived, none was published to a package registry, and all target the retired V1/V2 API.
+
+## What does exist beyond the API
+
+- Project Open Data / DCAT-US v1.1 catalog: https://www.dol.gov/data.json — carries three ILAB datasets with federal identifiers ILAB-12-012:037-141/142/143.
+- Vulnerability disclosure policy: https://www.dol.gov/vulnerability-disclosure-policy, reports via https://bugcrowd.com/dol-vdp (CISA BOD 20-01).
+- Source code: https://github.com/USDepartmentofLabor — ILAB's Global Trace Protocol repos are active; the Sweat & Toil (Child-Labor) apps were archived in 2026.
+
+## Terms
+
+- Free. No paid tiers, no quotas published.
+- Attribution required: "This product uses the US Department of Labor API but is not endorsed or certified by the US Department of Labor."
+- Provided "as is" and "as-available", no warranty, no uptime commitment. DOL reserves an unquantified right to limit or block use.
+
+## Links
+
+- ILAB: https://www.dol.gov/agencies/ilab
+- DOL Open Data Portal: https://dataportal.dol.gov/
+- Getting started: https://dataportal.dol.gov/getting-started
+- User guide: https://dataportal.dol.gov/user-guide
+- API examples: https://dataportal.dol.gov/api-examples
+- Data catalogue: https://dataportal.dol.gov/datasets
+- FAQ: https://dataportal.dol.gov/faq
+- Contact: https://dataportal.dol.gov/contact-us
+- Privacy: https://www.dol.gov/general/privacynotice

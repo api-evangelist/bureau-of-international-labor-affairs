@@ -3,97 +3,85 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Bureau of International Labor Affairs
 providerId: bureau-of-international-labor-affairs
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://dataportal.dol.gov/getting-started (Parameters section) and the DOL API Terms
+  of Service ("Right to Limit"), read from the portal's shipped bundle
+  https://dataportal.dol.gov/static/js/main.1788ccf8.js; plus live response-header
+  inspection of https://apiprod.dol.gov/v4/datasets on 2026-09-05.
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Federal Government
-  - International
-  - Labor
-  - Standards
-  - Child Labor
-  - Forced Labor
-  - Human Trafficking
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Bureau of International Labor Affairs API
-  surface. Captures per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults
-  are scaffold values to be replaced with published provider limits.
+modified: '2026-09-05'
+supersedes: >-
+  A 2026-05-04 bulk-sweep scaffold that asserted free/professional/enterprise tiers at
+  10/100/1000 requests per minute with X-RateLimit-* headers. None of that was published
+  by DOL. It has been replaced with what the provider actually documents.
+description: >-
+  The U.S. Department of Labor Open Data Portal API, which serves ILAB's datasets,
+  publishes NO request-rate limit. What it publishes is a per-response size ceiling. The
+  Terms of Service reserve an unspecified right to throttle or block, without stating any
+  number.
+limit_count: 1
+rate_limits_published: false
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After response header is documented, and none
+    was present on a live 200 from https://apiprod.dol.gov/v4/datasets on 2026-09-05. An
+    agent has no runtime signal to back off against.
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttled: null
+  quotaExceeded: null
+  note: >-
+    No 429 is documented and none was observed. Undocumented — recorded as unknown rather
+    than assumed.
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - DOL ILAB Data API
-      - ILAB Sweat and Toil Data
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - DOL ILAB Data API
-      - ILAB Sweat and Toil Data
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - DOL ILAB Data API
-      - ILAB Sweat and Toil Data
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - DOL ILAB Data API
-      - ILAB Sweat and Toil Data
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - DOL ILAB Data API
-      - ILAB Sweat and Toil Data
+  - name: Per-response record and payload ceiling
+    scope: per-request
+    metric: records_or_bytes
+    limit: 10000
+    max_bytes: 5242880
+    window: per request
+    parameter: limit
+    default: 10
+    status: published
+    evidence: https://dataportal.dol.gov/getting-started
+    quote: >-
+      "You can receive up to 5 MB of data or 10,000 records per request, whichever limit
+      you hit first."
+    workaround: >-
+      Documented: page with limit + offset. "if you need 20,000 records you would get the
+      first chunk of 10,000 records by setting the limit to 10000 and offset to 0, and the
+      second chunk ... offset to 10000."
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Right to Limit (Terms of Service)
+    published: true
+    quantified: false
+    evidence: https://dataportal.dol.gov/registration
+    quote: >-
+      "Your use of the API may be subject to certain limitations on access, calls, or use
+      as set forth within this Agreement or otherwise provided by the DOL. If the DOL
+      reasonably believes that you have attempted to exceed or circumvent these limits,
+      your ability to use the API may be temporarily or permanently blocked. The DOL may
+      monitor your use of the API to improve the service or to insure compliance with this
+      Agreement."
+    note: >-
+      This is a discretionary enforcement clause with no threshold attached. It is the
+      only rate-limit language DOL publishes.
+  - name: API key count
+    published: true
+    detail: >-
+      An account may hold up to 5 API keys, "for different purposes, client applications,
+      or automation." This is a key-count cap, not a rate cap.
+    evidence: https://dataportal.dol.gov/api-keys
+gaps:
+  - No requests-per-second/minute/hour/day figure is published.
+  - No 429 status or Retry-After behaviour is documented.
+  - No rate-limit response headers exist, so backoff cannot be driven by the API itself.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

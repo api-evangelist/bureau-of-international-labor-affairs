@@ -3,21 +3,21 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/bureau-of-international-labor-affairs/refs/heads/main/apis.yml
 name: Bureau of International Labor Affairs
 tags:
-  - Federal-Government
-  - International
-  - Labor
-  - Standards
-  - Child Labor
-  - Forced Labor
-  - Human Trafficking
+- Federal-Government
+- International
+- Labor
+- Standards
+- Child Labor
+- Forced Labor
+- Human Trafficking
 tags_raw:
-  - Federal Government
-  - International
-  - Labor
-  - Standards
-  - Child Labor
-  - Forced Labor
-  - Human Trafficking
+- Federal Government
+- International
+- Labor
+- Standards
+- Child Labor
+- Forced Labor
+- Human Trafficking
 type: Index
 kind: government
 deliveryModel:
@@ -32,113 +32,180 @@ deliveryModel:
   generated: '2026-08-28'
   method: derived
 accessModel:
-  pricing: freemium
-  onboarding: unknown
+  pricing: free
+  onboarding: self-service
   trial: false
   try_now: false
-  public: false
-  label: Freemium
-  confidence: medium
+  public: true
+  label: Free public data — self-service API key
+  confidence: high
   source:
   - plans
-  generated: '2026-07-22'
+  - https://dataportal.dol.gov/registration
+  generated: '2026-09-05'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-international-labor-affairs.png
 access: 3rd-Party
 created: '2024-11-25'
-modified: '2026-04-23'
+modified: '2026-09-05'
 position: Consuming
 description: >-
-  ILAB strengthens global labor standards; enforces labor commitments; promotes
-  equity; and combats child labor, forced labor, and human trafficking.
+  ILAB is the U.S. Department of Labor bureau that strengthens global labor standards, enforces labor
+  commitments in trade agreements, promotes equity, and combats child labor, forced labor and human trafficking.
+  ILAB operates no API of its own: its seven public datasets — the Child Labor Report and the ImportWatch
+  and LaborShield families, all derived from ILAB's three flagship reports — are served through the department-wide
+  DOL Open Data Portal API at apiprod.dol.gov/v4, under the agency segment 'ilab', with a free X-API-KEY
+  credential.
 apis:
-  - aid: >-
-      bureau-of-international-labor-affairs:dol-ilab-data-api
-    name: DOL ILAB Data API
-    tags:
-      - Federal-Government
-      - Labor
-      - International
-      - Child Labor
-      - Forced Labor
-    tags_raw:
-      - Federal Government
-      - Labor
-      - International
-      - Child Labor
-      - Forced Labor
-    humanURL: https://www.dol.gov/agencies/ilab/our-work/data-research
-    baseURL: https://api.dol.gov/V1/ILAB
-    properties:
-      - url: https://www.dol.gov/agencies/ilab/our-work/data-research
-        type: Documentation
-      - url: https://developer.dol.gov/
-        type: Portal
-      - url: https://catalog.data.gov/dataset?organization=dol-gov&q=ilab
-        type: DataAPI
-    description: >-
-      ILAB provides data on child labor, forced labor, and human trafficking
-      across countries. The DOL developer API provides programmatic access to
-      ILAB datasets including country-level labor standards assessments,
-      lists of goods produced by child labor or forced labor, and trade
-      agreement labor compliance data.
-    features:
-      - Child Labor Data
-      - Forced Labor Data
-      - Country Profiles
-      - Trade Agreement Compliance
-    useCases:
-      - Research global labor standards violations
-      - Track goods produced with child or forced labor
-      - Monitor trade agreement labor commitments
-      - Support CSR due diligence workflows
-  - aid: >-
-      bureau-of-international-labor-affairs:ilab-sweat-and-toil-data
-    name: ILAB Sweat and Toil Data
-    tags:
-      - Federal-Government
-      - Child Labor
-      - Forced Labor
-    tags_raw:
-      - Federal Government
-      - Child Labor
-      - Forced Labor
-    humanURL: https://www.dol.gov/agencies/ilab/our-work/data-research/sweat-toil
-    properties:
-      - url: https://www.dol.gov/agencies/ilab/our-work/data-research/sweat-toil
-        type: Documentation
-      - url: https://developer.dol.gov/
-        type: Portal
-    description: >-
-      The Sweat and Toil dataset covers child labor and forced labor in over 130
-      countries, including goods identified as produced by child or forced labor,
-      country advancement levels, and suggested actions.
-    features:
-      - Goods Produced by Child Labor
-      - Goods Produced by Forced Labor
-      - Country Advancement Level
-      - Suggested Government Actions
-    useCases:
-      - Supply chain due diligence
-      - ESG reporting
-      - Academic research on child labor
-      - Policy analysis
+- aid: >-
+    bureau-of-international-labor-affairs:dol-ilab-data-api
+  name: DOL Open Data Portal API — ILAB datasets
+  tags:
+  - Federal-Government
+  - Labor
+  - International
+  - Child Labor
+  - Forced Labor
+  tags_raw:
+  - Federal Government
+  - Labor
+  - International
+  - Child Labor
+  - Forced Labor
+  humanURL: https://dataportal.dol.gov/datasets
+  baseURL: https://apiprod.dol.gov/v4
+  properties:
+  - url: https://dataportal.dol.gov/
+    type: DeveloperPortal
+  - url: https://dataportal.dol.gov/user-guide
+    type: Documentation
+  - url: https://dataportal.dol.gov/getting-started
+    type: APIReference
+  - url: https://dataportal.dol.gov/getting-started
+    type: GettingStarted
+  - url: https://dataportal.dol.gov/api-examples
+    type: Examples
+  - url: https://catalog.data.gov/dataset?organization=dol-gov&q=ilab
+    type: Data Portal
+  description: >-
+    ILAB's datasets are served through the U.S. Department of Labor Open Data Portal API (https://apiprod.dol.gov/v4)
+    under the agency segment 'ilab'. The catalogue route /v4/datasets answers anonymously; dataset rows
+    and metadata require a free X-API-KEY. Seven ILAB datasets cover child labor, forced labor, goods
+    produced by child or forced labor, and Harmonized Tariff Schedule matches to U.S. import trade data.
+    The previously recorded base URL https://api.dol.gov/V1/ILAB is retired and now returns an AWS API
+    Gateway route-not-found 403.
+  features:
+  - Child Labor Data
+  - Forced Labor Data
+  - Country Profiles
+  - Trade Agreement Compliance
+  useCases:
+  - Research global labor standards violations
+  - Track goods produced with child or forced labor
+  - Monitor trade agreement labor commitments
+  - Support CSR due diligence workflows
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-international-labor-affairs.png
+- aid: >-
+    bureau-of-international-labor-affairs:ilab-sweat-and-toil-data
+  name: ILAB Sweat & Toil / LaborShield dataset family
+  tags:
+  - Federal-Government
+  - Child Labor
+  - Forced Labor
+  tags_raw:
+  - Federal Government
+  - Child Labor
+  - Forced Labor
+  humanURL: https://www.dol.gov/agencies/ilab/tools-for-businesses-to-self-assess-labor-risks
+  properties:
+  - url: https://www.dol.gov/agencies/ilab/tools-for-businesses-to-self-assess-labor-risks
+    type: Documentation
+  - url: https://www.dol.gov/agencies/ilab/importwatch
+    type: Documentation
+  - url: https://dataportal.dol.gov/
+    type: DeveloperPortal
+  - url: data-model/bureau-of-international-labor-affairs-data-model.yml
+    type: DataModel
+  description: >-
+    The Sweat & Toil programme's data now ships under the LaborShield, ImportWatch, SourcingStrong and
+    SupplyChainTrace names. Seven tables are published through the DOL Open Data Portal API: Child_Labor_Report__2016_to_2022
+    (whose table name still carries the sweat_toil prefix), ImportWatch_Core_Data, ImportWatch_Goods_HS,
+    ImportWatch_Country_Codes, LaborShield_ReportingData, LaborShield_Goods and LaborShield_SuggestedActions.
+    The former Sweat & Toil landing page at dol.gov/agencies/ilab/our-work/data-research/sweat-toil now
+    returns 404.
+  features:
+  - Goods Produced by Child Labor
+  - Goods Produced by Forced Labor
+  - Country Advancement Level
+  - Suggested Government Actions
+  useCases:
+  - Supply chain due diligence
+  - ESG reporting
+  - Academic research on child labor
+  - Policy analysis
+  baseURL: https://apiprod.dol.gov/v4/get/ilab
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-international-labor-affairs.png
 common:
-  - type: DomainSecurity
-    url: security/bureau-of-international-labor-affairs-domain-security.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/showcase/bureau-of-international-labor-affairs
-  - type: Website
-    url: https://www.dol.gov/agencies/ilab
-  - type: Portal
-    url: https://developer.dol.gov/
-  - type: PrivacyPolicy
-    url: https://www.dol.gov/general/privacynotice
-  - type: Data Research
-    url: https://www.dol.gov/agencies/ilab/our-work/data-research
-  - type: Data Portal
-    url: https://catalog.data.gov/dataset?organization=dol-gov&q=ilab
+- type: DomainSecurity
+  url: security/bureau-of-international-labor-affairs-domain-security.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/showcase/bureau-of-international-labor-affairs
+- type: Website
+  url: https://www.dol.gov/agencies/ilab
+- type: PrivacyPolicy
+  url: https://www.dol.gov/general/privacynotice
+- type: Data Portal
+  url: https://catalog.data.gov/dataset?organization=dol-gov&q=ilab
+- type: DeveloperPortal
+  url: https://dataportal.dol.gov/
+- type: Documentation
+  url: https://dataportal.dol.gov/user-guide
+- type: APIReference
+  url: https://dataportal.dol.gov/getting-started
+- type: GettingStarted
+  url: https://dataportal.dol.gov/getting-started
+- type: Support
+  url: https://dataportal.dol.gov/contact-us
+- type: SignUp
+  url: https://dataportal.dol.gov/registration
+- type: TermsOfService
+  url: https://dataportal.dol.gov/registration
+- type: GitHubOrganization
+  url: https://github.com/USDepartmentofLabor
+- type: Authentication
+  url: authentication/bureau-of-international-labor-affairs-authentication.yml
+- type: Conventions
+  url: conventions/bureau-of-international-labor-affairs-conventions.yml
+- type: ErrorCatalog
+  url: errors/bureau-of-international-labor-affairs-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/bureau-of-international-labor-affairs-lifecycle.yml
+- type: Conformance
+  url: conformance/bureau-of-international-labor-affairs-conformance.yml
+- type: DataModel
+  url: data-model/bureau-of-international-labor-affairs-data-model.yml
+- type: Packages
+  url: packages/bureau-of-international-labor-affairs-packages.yml
+- type: LLMsTxt
+  url: llms/bureau-of-international-labor-affairs-llms.txt
+- type: RateLimits
+  url: rate-limits/bureau-of-international-labor-affairs-rate-limits.yml
+- type: Plans
+  url: plans/bureau-of-international-labor-affairs-plans-pricing.yml
+- type: VulnerabilityDisclosure
+  url: security/bureau-of-international-labor-affairs-vulnerability-disclosure.yml
+- type: Security
+  url: security/bureau-of-international-labor-affairs-vulnerability-disclosure.yml
+- type: X-MCPServerCandidate
+  url: mcp/bureau-of-international-labor-affairs-mcp.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 11
+  pass: local-v3
+x-parent: department-of-labor
+x-relationship: division

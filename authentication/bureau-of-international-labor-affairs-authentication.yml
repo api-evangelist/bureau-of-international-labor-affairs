@@ -1,0 +1,71 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://dataportal.dol.gov/getting-started and https://dataportal.dol.gov/api-keys
+  — the DOL Open Data Portal is a React single-page app, so the published reference
+  text was read out of its shipped bundle
+  (https://dataportal.dol.gov/static/js/main.1788ccf8.js), which is the same content
+  the portal renders to a human.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  ILAB does not run its own API gateway. Its seven public datasets are served through
+  the department-wide U.S. Department of Labor Open Data Portal API at
+  https://apiprod.dol.gov/v4, which authenticates with a single long-lived API key
+  passed as X-API-KEY. There is no OAuth, no OIDC, no scopes and no token exchange.
+base_url: https://apiprod.dol.gov/v4
+schemes:
+  - id: dol-open-data-api-key
+    type: apiKey
+    name: X-API-KEY
+    in: query
+    also_accepted_in: header
+    required: true
+    applies_to:
+      - /v4/get/{agency}/{endpoint}/{format}
+      - /v4/get/{agency}/{endpoint}/{format}/metadata
+    description: >-
+      "X-API-KEY (string, required): User's API key for authentication." Documented on
+      the portal's Getting Started page. The portal's own examples pass it as a query
+      string parameter, e.g.
+      https://apiprod.dol.gov/v4/get/{agency}/{endpoint}/json/metadata?X-API-KEY={api_key}
+    key_format: >-
+      "Your API key will look like a mixture of numbers, letters, and special characters."
+      No prefix is documented.
+    obtain: >-
+      Register an account at https://dataportal.dol.gov/registration, complete the API
+      User Questionnaire, and accept the Terms of Service. A key is issued to the account
+      after a short propagation delay.
+    key_management: https://dataportal.dol.gov/api-keys
+    keys_per_account: 5
+    rotation_policy: >-
+      Not published. Additional keys (up to 5) can be created for different purposes,
+      client applications or automation, which is the documented substitute for rotation.
+unauthenticated_surface:
+  - path: /v4/datasets
+    url: https://apiprod.dol.gov/v4/datasets
+    status: 200
+    note: >-
+      The dataset catalogue endpoint answers anonymously and is paginated
+      (meta.current_page / next_page / total_pages / total_count). Verified 2026-09-05:
+      42 datasets across 5 pages, 7 of them ILAB (agency.abbr "ILAB", agency_id 24).
+      This is the only DOL v4 route observed to serve data without a key.
+observed_failures:
+  - status: 401
+    where: /v4/get/ilab/{endpoint}/json/metadata with no key
+    body: >-
+      The API key is either incorrect or missing from your query. If you are using the
+      API Query Builder in the Open Data Portal, please Sign in and try again, otherwise
+      please correct your key.
+    note: Plain-text body, not JSON, and not RFC 9457.
+not_present:
+  oauth2: false
+  openIdConnect: false
+  mutualTLS: false
+  http_bearer: false
+  scopes: >-
+    None. The key is unscoped — it grants read access to the whole public catalogue.
+    No scopes/ artifact is written for this provider (see the pipeline's OAuth-only rule).
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

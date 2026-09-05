@@ -1,0 +1,178 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  https://apiprod.dol.gov/v4/datasets — the anonymous DOL Open Data Portal catalogue
+  endpoint, paged in full (5 pages, 42 datasets, meta.total_count 42) on 2026-09-05 and
+  filtered to agency.abbr == "ILAB" (agency_id 24).
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  ILAB publishes seven tabular datasets through the DOL v4 API. They are flat tables, not
+  a linked resource graph — there are no $refs, no hypermedia links and no id-reference
+  fields to walk, because there is no OpenAPI and the per-dataset /metadata route (which
+  is where column-level structure lives) requires an API key. What IS observable
+  anonymously is the catalogue record for each dataset, and the product families the
+  bureau groups them into. Column-level fields are deliberately NOT listed here: they
+  were not observed, and inventing them is the failure mode this pipeline exists to avoid.
+completeness:
+  entity_level: observed
+  field_level: not-observed
+  reason: >-
+    /v4/get/ilab/{endpoint}/json/metadata returns 401 without a key. Field names,
+    types and allowed_variable_range are published there and could be captured on a
+    future authenticated pass.
+catalogue_record_shape:
+  source: https://apiprod.dol.gov/v4/datasets
+  fields:
+    - id
+    - name
+    - description
+    - tablename
+    - tablename_alias
+    - published_at
+    - dataset_type
+    - agency_id
+    - agency (name, abbr)
+    - frequency
+    - api_url
+    - category_id
+    - category (name)
+    - category_name
+    - status
+    - tag_list
+    - created_at
+    - updated_at
+  note: >-
+    api_url is the {endpoint} path segment; agency.abbr lowercased is the {agency}
+    segment. Together they compose every data and metadata URL for the bureau.
+entities:
+  - id: '10272'
+    name: Child Labor Report (2016 to 2022)
+    api_url: Child_Labor_Report__2016_to_2022
+    tablename: ILAB_sweat_toil_child_labor_report_2016_to_2022
+    family: Sweat & Toil (legacy)
+    category: Child Labor
+    frequency: Static
+    published: '2025-03-04'
+    updated: '2025-09-24'
+    tags: [age, education, inspection, penalties, sector, violations, other countries]
+    data_url: https://apiprod.dol.gov/v4/get/ilab/Child_Labor_Report__2016_to_2022/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/Child_Labor_Report__2016_to_2022/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10272
+    note: >-
+      The tablename still carries the sweat_toil prefix — this is the machine-readable
+      descendant of the retired Sweat & Toil programme, covering the 2016-2022 reporting
+      cycles from ILAB's three flagship reports.
+  - id: '10295'
+    name: ImportWatch_Core_Data
+    api_url: ImportWatch_Core_Data
+    tablename: ILAB_ImportWatch_Core_Data
+    family: ImportWatch
+    category: Child Labor
+    frequency: Ad-Hoc
+    published: '2025-09-24'
+    updated: '2025-11-19'
+    data_url: https://apiprod.dol.gov/v4/get/ilab/ImportWatch_Core_Data/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/ImportWatch_Core_Data/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10295
+  - id: '10294'
+    name: ImportWatch_Goods_HS
+    api_url: ImportWatch_Goods_HS
+    tablename: ILAB_ImportWatch_Goods_HS
+    family: ImportWatch
+    category: Child Labor
+    frequency: Ad-Hoc
+    published: '2025-11-19'
+    updated: '2025-11-19'
+    data_url: https://apiprod.dol.gov/v4/get/ilab/ImportWatch_Goods_HS/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/ImportWatch_Goods_HS/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10294
+    note: >-
+      Carries Harmonized Tariff Schedule codes, per the published description. HS is an
+      external identifier scheme (WCO), which is the join key between ILAB's labor
+      findings and U.S. import trade data.
+  - id: '10296'
+    name: ImportWatch_Country_Codes
+    api_url: ImportWatch_Country_Codes
+    tablename: ILAB_ImportWatch_Country_Codes
+    family: ImportWatch
+    category: Child Labor
+    frequency: Ad-Hoc
+    published: '2025-09-24'
+    updated: '2025-11-19'
+    data_url: https://apiprod.dol.gov/v4/get/ilab/ImportWatch_Country_Codes/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/ImportWatch_Country_Codes/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10296
+    role: lookup
+  - id: '10297'
+    name: LaborShield_ReportingData
+    api_url: LaborShield_ReportingData
+    tablename: ILAB_LaborShield_ReportingData
+    family: LaborShield
+    category: Child Labor
+    frequency: Ad-Hoc
+    published: '2026-01-22'
+    updated: '2026-01-22'
+    data_url: https://apiprod.dol.gov/v4/get/ilab/LaborShield_ReportingData/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/LaborShield_ReportingData/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10297
+  - id: '10300'
+    name: LaborShield_Goods
+    api_url: LaborShield_Goods
+    tablename: ILAB_LaborShield_Goods
+    family: LaborShield
+    category: Child Labor
+    frequency: Ad-Hoc
+    published: '2026-01-22'
+    updated: '2026-01-22'
+    data_url: https://apiprod.dol.gov/v4/get/ilab/LaborShield_Goods/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/LaborShield_Goods/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10300
+  - id: '10302'
+    name: LaborShield_SuggestedActions
+    api_url: LaborShield_SuggestedActions
+    tablename: ILAB_LaborShield_SuggestedActions
+    family: LaborShield
+    category: Child Labor
+    frequency: Ad-Hoc
+    published: '2026-01-22'
+    updated: '2026-01-22'
+    data_url: https://apiprod.dol.gov/v4/get/ilab/LaborShield_SuggestedActions/json
+    metadata_url: https://apiprod.dol.gov/v4/get/ilab/LaborShield_SuggestedActions/json/metadata
+    portal_page: https://dataportal.dol.gov/datasets/10302
+families:
+  - name: LaborShield
+    datasets: ['10297', '10300', '10302']
+    purpose: >-
+      Supply-chain risk assessment against ILAB's three flagship reports. Public-facing
+      tool covering egregious labor violations in 145+ countries.
+    first_published: '2026-01-22'
+  - name: ImportWatch
+    datasets: ['10294', '10295', '10296']
+    purpose: >-
+      Joins ILAB's flagship-report findings to U.S. import trade data via Harmonized
+      Tariff Schedule codes to surface high-risk imports.
+    first_published: '2025-09-24'
+  - name: Sweat & Toil (legacy)
+    datasets: ['10272']
+    purpose: The 2016-2022 reporting-cycle child labor and forced labor report data.
+relationships:
+  observed: []
+  note: >-
+    No relationship could be OBSERVED: the API returns flat rows, exposes no foreign-key
+    metadata anonymously, and publishes no schema. ImportWatch_Country_Codes is named as a
+    lookup and ImportWatch_Goods_HS is described as carrying HS codes, which strongly
+    implies a country-code and an HS-code join against ImportWatch_Core_Data — but that
+    join is inferred from names and prose, not read from a contract, so it is recorded as
+    a note rather than as a relationship edge.
+source_reports:
+  note: >-
+    All seven datasets derive from the same three ILAB flagship reports, per their own
+    published descriptions.
+  reports:
+    - Findings on the Worst Forms of Child Labor
+    - List of Goods Produced by Child Labor or Forced Labor
+    - List of Products Produced by Forced or Indentured Child Labor
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

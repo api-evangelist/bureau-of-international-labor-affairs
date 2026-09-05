@@ -1,0 +1,137 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://dataportal.dol.gov/getting-started (Parameters, Building an API query,
+  Executing and Debugging Queries, Conditional Filtering) and
+  https://dataportal.dol.gov/user-guide, read from the portal's shipped React bundle
+  https://dataportal.dol.gov/static/js/main.1788ccf8.js, plus live probes of
+  https://apiprod.dol.gov/v4 on 2026-09-05.
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+summary: >-
+  ILAB's data is published through the U.S. Department of Labor Open Data Portal API,
+  which is a READ-ONLY tabular query API. One route shape returns rows from a named
+  dataset; a sibling route returns that dataset's metadata; a third lists the catalogue.
+  There are no writes, so idempotency, dry-run and reversibility are all `na` rather
+  than absent.
+auth:
+  style: api-key
+  parameter: X-API-KEY
+  placement: query (header also accepted)
+  detail: See authentication/bureau-of-international-labor-affairs-authentication.yml
+url_shape:
+  catalogue: https://apiprod.dol.gov/v4/datasets
+  data: https://apiprod.dol.gov/v4/get/{agency}/{endpoint}/{format}
+  metadata: https://apiprod.dol.gov/v4/get/{agency}/{endpoint}/{format}/metadata
+  agency_for_this_provider: ilab
+  note: >-
+    {agency} is the agency name abbreviation and {endpoint} is the `api_url` field, both
+    read from the anonymous /v4/datasets catalogue. Format is a PATH segment, not an
+    Accept header.
+content_negotiation:
+  style: path-segment
+  parameter: format
+  required: true
+  values: [json, xml, csv]
+  default: json
+  note: >-
+    Format is positional in the URL. There is no documented Accept-header negotiation.
+pagination:
+  style: limit-offset
+  params:
+    limit:
+      type: integer
+      default: 10
+      max_records: 10000
+      max_bytes: 5242880
+      note: >-
+        "You can receive up to 5 MB of data or 10,000 records per request, whichever
+        limit you hit first."
+    offset:
+      type: integer
+      default: 0
+      note: >-
+        Number of records to skip. The docs give the worked example: for 20,000 records,
+        request limit=10000&offset=0 then limit=10000&offset=10000.
+  response_fields:
+    catalogue: meta.current_page, meta.next_page, meta.prev_page, meta.total_pages, meta.total_count
+    data: >-
+      Not documented; the data routes are key-gated and could not be observed anonymously.
+  cursor: false
+  link_header: false
+sparse_fieldsets:
+  supported: true
+  param: fields
+  style: comma-separated field names
+  default: all variables included
+  example: fields=case_identifier,naics_code,back_wages
+sorting:
+  supported: true
+  params:
+    sort: asc | desc
+    sort_by: field name
+filtering:
+  supported: true
+  param: filter_object
+  encoding: JSON string in the query parameter
+  shape:
+    field: the field name the filter applies to
+    operator: the equality operation
+    value: the conditional value
+  operators: [eq, neq, gt, lt, in, not_in, like]
+  note: >-
+    Multiple conditions are supported; the portal documents this as "Conditional Column
+    Filtering" with single- and multi-condition examples.
+expansion:
+  supported: false
+metadata_surface:
+  supported: true
+  note: >-
+    Every dataset exposes a companion /metadata route describing each variable, including
+    allowed_variable_range (valid numeric/date/time ranges) and a valueless_list link —
+    an API call returning entries that resemble valid data but cannot be interpreted.
+    This is unusually strong data-quality documentation for a government tabular API.
+request_id_tracing:
+  supported: unknown
+  note: No request-id or correlation header is documented, and none could be observed anonymously.
+versioning:
+  style: url-path
+  current: v4
+  detail: See lifecycle/bureau-of-international-labor-affairs-lifecycle.yml
+error_envelope:
+  shape: inconsistent
+  detail: >-
+    Three different envelopes were observed on the same estate: a JSON
+    {"message": "..."} object from the AWS API Gateway layer, a plain-text sentence for a
+    missing or bad API key, and a JSON {"message": "Internal server error"} on 502.
+    Not RFC 9457. See errors/bureau-of-international-labor-affairs-problem-types.yml.
+rate_limit_signaling:
+  headers_documented: false
+  detail: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header is documented and none was
+    observed. The only published ceiling is the per-response 10,000-record / 5 MB cap.
+    See rate-limits/bureau-of-international-labor-affairs-rate-limits.yml.
+idempotency:
+  coverage: na
+  mechanism: none
+  detail: >-
+    The API exposes no mutating operations — every documented route is a GET that reads
+    published federal data. There is nothing to replay-protect, so this dimension does
+    not apply rather than scoring zero.
+dry_run_mode:
+  supported: na
+  detail: >-
+    Read-only surface. The portal's API Query Builder is the closest analogue: it composes
+    and previews a request URL and curl command before you execute it, but that is a
+    console affordance, not an API parameter.
+reversibility:
+  applicable: na
+  grade: na
+  detail: >-
+    Read-only surface: no create, update or delete operation exists on the DOL v4 API,
+    so there is no action an agent could take that would need reversing. No reversal
+    operation and no window are asserted, because none is published and none is needed.
+  write_surfaces: []
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
