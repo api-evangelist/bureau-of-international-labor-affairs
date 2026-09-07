@@ -207,5 +207,5 @@ x-enrichment:
   status: enriched
   artifacts_added: 11
   pass: local-v3
-x-parent: department-of-labor
+x-parent: dol
 x-relationship: division
