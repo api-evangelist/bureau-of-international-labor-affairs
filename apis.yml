@@ -149,6 +149,8 @@ apis:
   baseURL: https://apiprod.dol.gov/v4/get/ilab
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-international-labor-affairs.png
 common:
+- type: FinOps
+  url: finops/bureau-of-international-labor-affairs-finops.yml
 - url: https://www.dol.gov/rss.xml
   type: BlogRSS
 - type: DomainSecurity
