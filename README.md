@@ -1,4 +1,4 @@
-# Bureau of International Labor Affairs (bureau-of-international-labor-affairs)
+# Bureau of International Labor Affairs
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,103 +64,118 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ILAB strengthens global labor standards; enforces labor commitments; promotes equity; and combats child labor, forced labor, and human trafficking.
+ILAB is the U.S. Department of Labor bureau that strengthens global labor standards, enforces labor commitments in trade agreements, promotes equity, and combats child labor, forced labor and human trafficking. ILAB operates no API of its own: its seven public datasets — the Child Labor Report and the ImportWatch and LaborShield families, all derived from ILAB's three flagship reports — are served through the department-wide DOL Open Data Portal API at apiprod.dol.gov/v4, under the agency segment 'ilab', with a free X-API-KEY credential.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/bureau-of-international-labor-affairs/refs/heads/main/apis.yml)
+**Areas:** Federal Government · International · Labor · Standards · Child Labor · Forced Labor · Human Trafficking
 
-## Scope
+## Bureau of International Labor Affairs on APIs.io
 
-- **Type:** Index
-- **x-type:** government
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Bureau of International Labor Affairs is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bureau-of-international-labor-affairs/](https://apis.io/providers/bureau-of-international-labor-affairs/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (2)
 
-- Federal Government
-- International
-- Labor
-- Standards
-- Child Labor
-- Forced Labor
-- Human Trafficking
+- [DOL Open Data Portal API — ILAB datasets](https://apis.io/apis/bureau-of-international-labor-affairs/dol-ilab-data-api/) — ILAB's datasets are served through the U.S. Department of Labor Open Data Portal API (https://apiprod.dol.gov/v4) under the agency segment 'ilab'. The…
+- [ILAB Sweat & Toil / LaborShield dataset family](https://apis.io/apis/bureau-of-international-labor-affairs/ilab-sweat-and-toil-data/) — The Sweat & Toil programme's data now ships under the LaborShield, ImportWatch, SourcingStrong and SupplyChainTrace names. Seven tables are published…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-11-25
-- **Modified:** 2026-04-23
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### DOL ILAB Data API
-Provides programmatic access to ILAB datasets including country-level labor standards assessments, lists of goods produced by child labor or forced labor, and trade agreement labor compliance data.
+Model Context Protocol servers that expose the API to agents.
 
-**Human URL:** [https://www.dol.gov/agencies/ilab/our-work/data-research](https://www.dol.gov/agencies/ilab/our-work/data-research)
+- [bureau-of-international-labor-affairs-mcp.yml](https://apis.io/servers/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-mcp-yml/)
 
-**Base URL:** https://api.dol.gov/V1/ILAB
+#### Security (3)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Federal Government
-- Labor
-- International
-- Child Labor
-- Forced Labor
+- [Bureau Of International Labor Affairs Authentication](https://apis.io/security/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-authentication/)
+- [Bureau Of International Labor Affairs Domain Security](https://apis.io/security/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-domain-security/)
+- [Bureau Of International Labor Affairs Vulnerability Disclosure](https://apis.io/security/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-vulnerability-disclosure/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://www.dol.gov/agencies/ilab/our-work/data-research)
-- [Portal](https://developer.dol.gov/)
-- [DataAPI](https://catalog.data.gov/dataset?organization=dol-gov&q=ilab)
+Published plans, tiers and prices.
 
-#### Features
+- [Bureau Of International Labor Affairs Plans Pricing](https://apis.io/plans/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-plans-pricing/)
 
-- Child Labor Data
-- Forced Labor Data
-- Country Profiles
-- Trade Agreement Compliance
+#### Rate limits (1)
 
-#### Use Cases
+Published request limits.
 
-- Research global labor standards violations
-- Track goods produced with child or forced labor
-- Monitor trade agreement labor commitments
-- Support CSR due diligence workflows
+- [Bureau Of International Labor Affairs Rate Limits](https://apis.io/rate-limits/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-rate-limits/)
 
-### ILAB Sweat and Toil Data
-The Sweat and Toil dataset covers child labor and forced labor in over 130 countries, including goods identified as produced by child or forced labor, country advancement levels, and suggested actions.
+#### FinOps (1)
 
-**Human URL:** [https://www.dol.gov/agencies/ilab/our-work/data-research/sweat-toil](https://www.dol.gov/agencies/ilab/our-work/data-research/sweat-toil)
+What the API costs to run, by operation.
 
-#### Tags
+- [Bureau Of International Labor Affairs Finops](https://apis.io/finops/bureau-of-international-labor-affairs/bureau-of-international-labor-affairs-finops/)
 
-- Federal Government
-- Child Labor
-- Forced Labor
+## Where to find this API
 
-#### Features
-
-- Goods Produced by Child Labor
-- Goods Produced by Forced Labor
-- Country Advancement Level
-- Suggested Government Actions
-
-#### Use Cases
-
-- Supply chain due diligence
-- ESG reporting
-- Academic research on child labor
-- Policy analysis
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.dol.gov/agencies/ilab)
-- [Portal](https://developer.dol.gov/)
-- [Privacy Policy](https://www.dol.gov/general/privacynotice)
-- [Data Research](https://www.dol.gov/agencies/ilab/our-work/data-research)
-- [Data Portal](https://catalog.data.gov/dataset?organization=dol-gov&q=ilab)
+- [Documentation](https://dataportal.dol.gov/user-guide)
+- [Getting started](https://dataportal.dol.gov/getting-started)
+- [API reference](https://dataportal.dol.gov/getting-started)
+- [Sign up](https://dataportal.dol.gov/registration)
+- [Support](https://dataportal.dol.gov/contact-us)
+- [Terms of service](https://dataportal.dol.gov/registration)
+- [Privacy policy](https://www.dol.gov/general/privacynotice)
+- [GitHub](https://github.com/USDepartmentofLabor)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 6.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 31.6 |
+
+**Agent readiness 12.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 26.5** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bureau-of-international-labor-affairs/](https://apis.io/providers/bureau-of-international-labor-affairs/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bureau of International Labor Affairs: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bureau-of-international-labor-affairs/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
