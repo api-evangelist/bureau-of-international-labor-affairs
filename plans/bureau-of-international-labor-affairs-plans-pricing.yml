@@ -1,0 +1,94 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Bureau of International Labor Affairs
+providerId: bureau-of-international-labor-affairs
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://dataportal.dol.gov/registration, https://dataportal.dol.gov/api-keys and the
+  DOL API Terms of Service (revised 2020-08-05), read from the portal's shipped bundle
+  https://dataportal.dol.gov/static/js/main.1788ccf8.js.
+created: '2026-05-04'
+modified: '2026-09-05'
+supersedes: >-
+  A 2026-05-04 bulk-sweep scaffold that invented Free / Professional / Enterprise tiers
+  with request quotas, overage pricing and SLA targets. DOL publishes none of that. It has
+  been replaced with the real commercial model.
+description: >-
+  There is no commercial model. The ILAB datasets are U.S. federal public data served
+  through the Department of Labor Open Data Portal API at no charge. There is one access
+  level, it is free, and the only gate is a self-service registration form.
+plan_count: 1
+pricing_model: free-public-data
+currency: USD
+paid_tiers: 0
+plans:
+  - id: bureau-of-international-labor-affairs-public
+    name: Public (free)
+    type: free
+    price: '0.00'
+    currency: USD
+    billing_period: none
+    description: >-
+      The only access level. Register an account, complete the API User Questionnaire,
+      accept the Terms of Service, and a key is issued. Up to 5 keys per account.
+    signup: https://dataportal.dol.gov/registration
+    key_management: https://dataportal.dol.gov/api-keys
+    quota: none published
+    overage: not applicable
+    limits:
+      - Up to 5 MB or 10,000 records per response, whichever is hit first
+      - Up to 5 API keys per account
+    entries:
+      - label: API Requests
+        description: >-
+          No request quota is published. DOL reserves a discretionary right to limit or
+          block use but attaches no number to it.
+        name: api_requests
+        type: quota
+        metric: requests
+        limit: null
+        timeFrame: null
+        price: '0.00'
+      - label: Response ceiling
+        description: Maximum records or payload returned by a single request.
+        name: response_ceiling
+        type: rate
+        metric: records_per_request
+        limit: 10000
+        timeFrame: request
+        price: '0.00'
+    elements:
+      - Full public dataset catalogue (https://apiprod.dol.gov/v4/datasets, anonymous)
+      - Dataset metadata (key required)
+      - Dataset records in json, xml or csv (key required)
+      - Seven ILAB datasets (Child Labor Report, ImportWatch x3, LaborShield x3)
+notes:
+  - >-
+    The anonymous catalogue endpoint https://apiprod.dol.gov/v4/datasets requires no key
+    at all — verified 200 on 2026-09-05.
+  - >-
+    Terms of Service require attribution: "This product uses the US Department of Labor
+    API but is not endorsed or certified by the US Department of Labor."
+  - >-
+    Offered "as is" and "as-available" with no warranty and no SLA.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - free
+  units:
+  - request
+  plans:
+  - name: Public (free)
+    access: free
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - per-use
